@@ -49,3 +49,166 @@
          5
     );
  ```
+
+```sql
+
+ INSERT INTO produtos(
+    nome, descricao, preco, quantidade, fabricante_id)
+VALUES(
+    'Geladeira',
+    'Refrigerador frost-free com acesso à Internet',
+    5000,
+    12,
+    6
+), 
+(
+    'iPhone 18 Pro Max',
+    'Smartphone Apple cheio das frescuras e caro pra caramba. Coisa de rico...',
+    12666.66,
+    3,
+    3
+), 
+(
+    'iPad Mini',
+    'Tablet Apple com tela retina display e bla bla bla.',
+    4999.01,
+    5,
+    3
+);
+
+INSERT INTO produtos(
+    nome, descricao, preco, quantidade, fabricante_id
+) VALUES(
+    'Xbox Series S',
+    'Velocidade e desempenho de última geração',
+    1997,
+    5,
+    8
+);
+
+INSERT INTO produtos(
+    nome, descricao, preco, quantidade, fabricante_id
+) VALUES(
+    'Notebook Motion',
+    'Intel Dual Core 4GB de RAM, 128GB SSD e Tela 14,1 polegadas.',
+    1213.65,
+    8,
+    7
+);
+SELECT
+SELECT * FROM produtos;
+
+SELECT nome, preco FROM produtos;
+
+SELECT preco, nome FROM produtos;
+
+SELECT nome, preco, quantidade FROM produtos
+WHERE preco < 5000;
+
+-- Mostre nome e descrição somente dos produtos da Apple
+SELECT nome, descricao FROM produtos
+WHERE fabricante_id = 3;
+Operadores Lógicos: E, OU, NÃO
+E
+SELECT nome, preco FROM produtos
+WHERE preco >= 2000 AND preco <= 6000; 
+
+-- A query abaixo não retorna registros
+-- já que as condições não foram totalmente atendidas
+SELECT nome, preco FROM produtos
+WHERE preco > 5000 AND preco <= 6000; 
+OU
+SELECT nome, preco FROM produtos
+WHERE preco > 5000 OR preco <= 3000; 
+
+-- Exiba nome e preço somente dos produtos
+-- da Apple e da Samsung
+SELECT nome, preco FROM produtos
+WHERE fabricante_id = 3 OR fabricante_id = 5;
+
+-- versão usando a função IN()
+SELECT nome, preco FROM produtos
+WHERE fabricante_id IN(3, 5);
+
+SELECT nome, preco FROM produtos
+WHERE fabricante_id NOT IN(3, 5);
+NÃO
+SELECT nome, descricao, preco FROM produtos
+WHERE NOT fabricante_id = 8;
+
+-- versão usando operador relacional "diferença/diferente"
+SELECT nome, descricao, preco FROM produtos
+WHERE fabricante_id != 8;
+UPDATE
+UPDATE fabricantes SET nome = 'Asus do Brasil'
+WHERE id = 1; -- ☠️ NÃO SE ESQUEÇA DO WHERE!! PRERIGO! ☠️
+
+-- SE FOR FAZER, TROCA PRA TABELA ZUEIRA!!!
+-- UPDATE fabricantes_zueira SET nome = 'Asus do Paraguai';
+
+UPDATE produtos SET preco = 6549.74
+WHERE id = 4;
+
+-- Altere a quantidade dos produtos da Apple e da Samsung
+-- para 20
+UPDATE produtos SET quantidade = 20
+-- WHERE fabricante_id = 3 OR fabricante_id = 5;
+-- WHERE id = 2 OR id = 4 OR id = 5;
+WHERE fabricante_id IN(3, 5);
+DELETE
+-- ☠️ NÃO SE ESQUEÇA DO WHERE!! PRERIGO! ☠️
+DELETE FROM fabricantes WHERE id = 1;
+DELETE FROM fabricantes WHERE id = 4;
+
+-- A query abaixo NÃO FUNCIONA devido à restrição
+-- de chave estrangeira/relacionamento, ou seja, 
+-- existem produtos associados ao fabricante 3 (apple)
+-- DELETE FROM fabricantes WHERE id = 3;
+SELECT: outras formas de uso
+Classificando
+SELECT nome, preco FROM produtos ORDER BY nome;
+SELECT nome, preco FROM produtos ORDER BY preco;
+SELECT nome, preco FROM produtos ORDER BY preco DESC;
+
+-- DESC: classificação em ordem decrescente
+-- ASC (padrão): classificação em ordem crescente
+
+SELECT nome, preco FROM produtos 
+WHERE quantidade = 20 ORDER BY nome;
+Busca de dados
+SELECT nome, descricao FROM produtos
+WHERE descricao LIKE '%tela%' OR nome LIKE '%tela%';
+
+-- Usamos o operador LIKE e o caractere coringa %
+-- para permitir uma busca da palavra indicada em
+-- qualquer posição dentro do texto. Neste contexto,
+-- o % significa 'qualquer texto' antes da palavra ou
+-- depois da palavra.
+Operações e funções de agregação
+-- SOMA
+SELECT SUM(preco) FROM produtos; 
+SELECT SUM(preco) as Total FROM produtos; -- alias/apedido
+
+-- Exemplo de alias/apelido para outras colunas
+SELECT nome as Produto, preco as "Preço" FROM produtos;
+SELECT nome Produto, preco "Preço" FROM produtos;
+
+-- MÉDIA E ARREDONDAMENTO
+SELECT AVG(preco) as "Média dos Preços" FROM produtos;
+SELECT ROUND(AVG(preco), 2) as "Média dos Preços"
+FROM produtos;
+
+-- CONTAGEM
+SELECT COUNT(id) as "Qtd de Produtos" FROM produtos;
+
+SELECT COUNT(DISTINCT fabricante_id) as "Qtd de Fabricantes com Produtos" FROM produtos;
+
+-- DISTINCT é uma cláusula/flag que evita a duplicidade
+-- na contagem de registros.
+Operações matemáticas
+SELECT nome, preco, quantidade, (preco * quantidade) as Total
+FROM produtos;
+Segmentação/Agrupamento de resultados
+SELECT fabricante_id, SUM(preco) as Total FROM produtos
+GROUP BY fabricante_id;
+```
