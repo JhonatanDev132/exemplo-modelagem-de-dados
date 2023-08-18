@@ -139,7 +139,6 @@ WHERE NOT fabricante_id = 8;
 -- versão usando operador relacional "diferença/diferente"
 SELECT nome, descricao, preco FROM produtos
 WHERE fabricante_id != 8;
-UPDATE
 UPDATE fabricantes SET nome = 'Asus do Brasil'
 WHERE id = 1; -- ☠️ NÃO SE ESQUEÇA DO WHERE!! PRERIGO! ☠️
 
@@ -266,6 +265,17 @@ FROM produtos INNER JOIN fabricantes
 ON produtos.fabricante_id = fabricantes.id
 GROUP BY Fabricante
 ORDER BY Total;
+```
+
+### Trazer a quantidade de produtos de cada fabricante e a soma da quantidade/estoque destes produtos, SOMENTE DOS FABRICANTES QUE POSSUEM PRODUTO.
+```sql
+SELECT
+    fabricantes.nome as Fabricante,
+    COUNT(produtos.fabricante_id) as "Qnt de Produtos",
+    SUM(produtos.quantidade) as "Qnt em estoque"
+FROM produtos INNER JOIN fabricantes
+ON produtos.fabricante_id = fabricantes.id
+GROUP BY Fabricante;
 ```
 
 
