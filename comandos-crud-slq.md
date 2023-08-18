@@ -48,4 +48,29 @@
          5,
          5
     );
+
+    INSERT INTO produtos(
+        nome, descricao, preco, quantidade, fabricante_id
+    )
+    VALUE(
+        'Geladeira',
+        'Refrigerador frost-free com acesso a internet',
+         5000,
+         12,
+         6
+    ),
+    (
+        'iphone 18 Pro Max',
+        'Smartphone Apple cheio das frescuras e caro pra caramba. Coisa de rico...',
+        12666.66,
+        3,
+        3
+    ),
+    (
+        'iPad Mini',
+        'Tablet Apple com tecla retina display e bla bla bla.',
+        4999.01,
+        5,
+        3
+    );
  ```
