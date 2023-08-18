@@ -36,7 +36,7 @@ CREATE TABLE produtos(
 ### Criação do relacionamento entre as tabelas (chave estrangeira)
 
 ```sql
-ALTER TABLE produtos,
+ALTER TABLE produtos
     ADD CONSTRAINT fk_produtos_fabricantes
 
     -- Criando a chave-estrangeira (fabricante_id) que
