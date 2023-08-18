@@ -273,7 +273,7 @@ SELECT
     fabricantes.nome as Fabricante,
     COUNT(produtos.fabricante_id) as "Qnt de Produtos",
     SUM(produtos.quantidade) as "Qnt em estoque"
-FROM produtos INNER JOIN fabricantes
+FROM produtos RIGHT JOIN fabricantes
 ON produtos.fabricante_id = fabricantes.id
 GROUP BY Fabricante;
 ```
